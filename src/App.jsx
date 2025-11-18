@@ -1,16 +1,97 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
   const [typedText, setTypedText] = useState('')
+  const [isMuted, setIsMuted] = useState(false)
+  const [audioStarted, setAudioStarted] = useState(false)
+  const audioRef = useRef(null)
   const fullMessage = 'Eres mi persona favorita en todo el mundo 🌟'
 
   // Calcular días desde una fecha especial (ajusta esta fecha)
   const specialDate = new Date('2024-01-01') // Cambia esta fecha
   const today = new Date()
   const daysSince = Math.floor((today - specialDate) / (1000 * 60 * 60 * 24))
+
+  // Efecto para inicializar el audio al cargar
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3 // Volumen al 30%
+      audioRef.current.loop = true // Asegurar que se repita
+      
+      // Event listeners para manejar la reproducción
+      const audio = audioRef.current
+      
+      // Cuando la canción termina, reiniciarla (por si el loop falla)
+      const handleEnded = () => {
+        audio.currentTime = 0
+        audio.play().catch(error => {
+          console.log('Error al reiniciar:', error)
+        })
+      }
+      
+      // Manejar errores de carga
+      const handleError = (e) => {
+        console.error('Error en el audio:', e)
+      }
+      
+      // Verificar cuando se carga el metadata (duración del audio)
+      const handleLoadedMetadata = () => {
+        console.log('Duración del audio:', audio.duration, 'segundos')
+      }
+      
+      audio.addEventListener('ended', handleEnded)
+      audio.addEventListener('error', handleError)
+      audio.addEventListener('loadedmetadata', handleLoadedMetadata)
+      
+      return () => {
+        audio.removeEventListener('ended', handleEnded)
+        audio.removeEventListener('error', handleError)
+        audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
+      }
+    }
+  }, [])
+
+  // Efecto para manejar mute/unmute
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.muted = isMuted
+    }
+  }, [isMuted])
+
+  // Función para iniciar el audio
+  const startAudio = () => {
+    if (audioRef.current && !audioStarted) {
+      audioRef.current.play().then(() => {
+        setAudioStarted(true)
+      }).catch(error => {
+        console.log('Error al reproducir:', error)
+      })
+    }
+  }
+
+  // Función para alternar mute/unmute
+  const toggleMute = () => {
+    if (audioRef.current) {
+      // Si el audio está pausado, iniciarlo primero
+      if (audioRef.current.paused) {
+        audioRef.current.play().then(() => {
+          setAudioStarted(true)
+        }).catch(error => {
+          console.log('Error al reproducir:', error)
+        })
+      }
+    }
+    setIsMuted(!isMuted)
+  }
+
+  // Función para abrir la carta e iniciar el audio
+  const handleOpenLetter = () => {
+    setIsOpen(true)
+    startAudio() // Iniciar música cuando se abre la carta
+  }
 
   // Efecto de escritura
   useEffect(() => {
@@ -43,6 +124,23 @@ function App() {
 
   return (
     <div className="container">
+      {/* Audio de fondo */}
+      <audio 
+        ref={audioRef}
+        src="/bri/musica/The Marías – Sienna.mp3" 
+        loop
+        preload="auto"
+      />
+
+      {/* Botón de mute */}
+      <button 
+        className="mute-button"
+        onClick={toggleMute}
+        aria-label={isMuted ? "Activar sonido" : "Silenciar"}
+      >
+        {isMuted ? '🔇' : '🔊'}
+      </button>
+
       {/* Fondo con textura */}
       <div className="texture-overlay"></div>
       
@@ -121,7 +219,7 @@ function App() {
             ) : (
               <div className="letter-closed-content">
                 <p>💌</p>
-                <button className="open-letter-btn" onClick={() => setIsOpen(true)}>
+                <button className="open-letter-btn" onClick={handleOpenLetter}>
                   Abrir carta
                 </button>
               </div>

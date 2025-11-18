@@ -368,6 +368,37 @@
   letter-spacing: 0.5px;
 }
 
+/* Botón de mute */
+.mute-button {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.9) 0%, rgba(255, 192, 203, 0.9) 100%);
+  border: 2px solid rgba(255, 182, 193, 0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.mute-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+  background: linear-gradient(135deg, rgba(255, 182, 193, 1) 0%, rgba(255, 192, 203, 1) 100%);
+}
+
+.mute-button:active {
+  transform: scale(0.95);
+}
+
 /* Animaciones */
 @keyframes floatHeart {
   0% {
@@ -551,6 +582,14 @@
     font-size: 0.9rem;
     opacity: 0.4;
   }
+
+  .mute-button {
+    top: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
 }
 
 /* Responsive - Móvil pequeño */
@@ -640,5 +679,13 @@
   .floating-heart,
   .falling-star {
     display: none;
+  }
+
+  .mute-button {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 }
