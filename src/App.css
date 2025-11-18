@@ -143,13 +143,14 @@
 /* Sobre */
 .envelope {
   position: relative;
-  width: 100%;
+  width: min(90vw, 750px);
   max-width: 750px;
   aspect-ratio: 4 / 3;
   transition: transform 0.5s ease;
   filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
   background: #fffef7;
   border: 1px solid rgba(255, 200, 210, 0.3);
+  margin: 0 auto;
 }
 
 .envelope.open {
@@ -506,6 +507,43 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Responsive principal */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  .letter-container {
+    width: 100%;
+  }
+
+  .envelope {
+    width: min(95vw, 520px);
+    aspect-ratio: 3 / 2;
+  }
+
+  .letter {
+    padding: 2rem 2.5rem;
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 480px) {
+  .envelope {
+    width: 94vw;
+    aspect-ratio: 4 / 3;
+  }
+
+  .letter {
+    padding: 1.8rem;
+    min-height: 300px;
+  }
+
+  .letter-content {
+    font-size: 0.95rem;
   }
 }
 
