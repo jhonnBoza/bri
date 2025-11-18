@@ -52,15 +52,6 @@ function App() {
       {/* Corazones flotantes */}
       {hearts}
 
-      {/* Snoopy izquierdo */}
-      <div className="snoopy-left">
-        <img 
-          src="/bri/icon-snoopy-1_1.webp" 
-          alt="Snoopy" 
-          className="snoopy-image"
-        />
-      </div>
-
       {/* Carta central con sobre */}
       <div className="letter-container">
         <div className={`envelope ${isOpen ? 'open' : ''}`}>
@@ -137,15 +128,6 @@ function App() {
             )}
           </div>
         </div>
-      </div>
-
-      {/* Snoopy derecho */}
-      <div className="snoopy-right">
-        <img 
-          src="/bri/Captura de pantalla 2025-11-15 205955.png" 
-          alt="Snoopy" 
-          className="snoopy-image"
-        />
       </div>
     </div>
   )

@@ -81,53 +81,6 @@
 .falling-star.star-18 { left: 95%; animation-delay: 7.2s; }
 .falling-star.star-19 { left: 98%; animation-delay: 7.6s; }
 
-/* Snoopy izquierdo */
-.snoopy-left {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: float 3s ease-in-out infinite;
-  background: transparent;
-  z-index: 3;
-}
-
-.snoopy-left .snoopy-image {
-  max-width: 200px;
-  max-height: 300px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  background: transparent !important;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
-  transform: scaleX(-1);
-  mix-blend-mode: normal;
-  opacity: 1;
-}
-
-/* Snoopy derecho */
-.snoopy-right {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: float 3s ease-in-out infinite 1.5s;
-  background: transparent;
-  z-index: 3;
-}
-
-.snoopy-right .snoopy-image {
-  max-width: 200px;
-  max-height: 300px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  background: transparent !important;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
-  mix-blend-mode: normal;
-  opacity: 1;
-}
-
 /* Carta central con sobre */
 .letter-container {
   flex: 1;
@@ -416,15 +369,6 @@
 }
 
 /* Animaciones */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
 @keyframes floatHeart {
   0% {
     transform: translateY(100vh) translateX(0) rotate(0deg);
@@ -510,70 +454,23 @@
   }
 }
 
-/* Responsive principal */
-@media (max-width: 768px) {
+/* Responsive - Tablet y móvil horizontal */
+@media (max-width: 968px) {
   .container {
+    flex-direction: column;
+    gap: 1.5rem;
     padding: 1.5rem;
   }
 
   .letter-container {
     width: 100%;
+    max-width: 100%;
   }
 
   .envelope {
-    width: min(95vw, 520px);
-    aspect-ratio: 3 / 2;
-  }
-
-  .letter {
-    padding: 2rem 2.5rem;
-    min-height: 340px;
-  }
-}
-
-@media (max-width: 480px) {
-  .envelope {
-    width: 94vw;
+    width: min(90vw, 600px);
+    max-width: 100%;
     aspect-ratio: 4 / 3;
-  }
-
-  .letter {
-    padding: 1.8rem;
-    min-height: 300px;
-  }
-
-  .letter-content {
-    font-size: 0.95rem;
-  }
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-  .container {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .snoopy-left,
-  .snoopy-right {
-    order: 2;
-  }
-
-  .letter-container {
-    order: 1;
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .envelope {
-    max-width: 100%;
-    aspect-ratio: 3 / 2;
-  }
-
-  .snoopy-left .snoopy-image,
-  .snoopy-right .snoopy-image {
-    max-width: 120px;
-    max-height: 180px;
   }
 
   .letter {
@@ -584,32 +481,164 @@
   .floating-heart,
   .falling-star {
     font-size: 1rem;
+    opacity: 0.5;
   }
 }
 
-@media (max-width: 600px) {
+/* Responsive - Móvil vertical */
+@media (max-width: 768px) {
   .container {
+    flex-direction: column;
+    min-height: 100vh;
     padding: 1rem;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
   }
 
-  .letter {
-    padding: 1.5rem 2rem;
-    min-height: 300px;
+  .letter-container {
+    width: 100%;
+    max-width: 100%;
   }
 
   .envelope {
-    aspect-ratio: 4 / 3;
+    width: min(92vw, 500px);
+    aspect-ratio: 3 / 4;
+    filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.15));
+    border-radius: 16px;
+  }
+
+  .letter {
+    padding: 1.8rem 2rem;
+    min-height: auto;
+    transform: rotate(0deg);
+    border-radius: 12px;
   }
 
   .letter-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .letter-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .letter-content p {
+    margin: 1.2rem 0;
+  }
+
+  .letter-closed-content {
+    padding: 3rem 1.5rem;
+  }
+
+  .letter-closed-content p {
+    font-size: 3.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .open-letter-btn {
+    padding: 1rem 2rem;
     font-size: 1rem;
+  }
+
+  .envelope-flap {
+    height: 150px;
+  }
+
+  .floating-heart,
+  .falling-star {
+    font-size: 0.9rem;
+    opacity: 0.4;
+  }
+}
+
+/* Responsive - Móvil pequeño */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .envelope {
+    width: 95vw;
+    aspect-ratio: 3 / 4;
+    border-radius: 14px;
+  }
+
+  .letter {
+    padding: 1.4rem 1.5rem;
+    min-height: auto;
+  }
+
+  .letter-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .letter-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .letter-date {
+    font-size: 0.85rem;
+  }
+
+  .letter-content {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .letter-content p {
+    margin: 1rem 0;
+  }
+
+  .letter-closed-content {
+    padding: 2.5rem 1rem;
   }
 
   .letter-closed-content p {
     font-size: 3rem;
+    margin: 1.5rem 0;
+  }
+
+  .open-letter-btn {
+    padding: 0.9rem 1.8rem;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .surprise-button {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .days-counter {
+    padding: 0.8rem;
+    margin: 1.2rem 0;
+  }
+
+  .days-counter p {
+    font-size: 0.9rem;
+  }
+
+  .signature {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
+  .signature-name {
+    font-size: 1.2rem;
+  }
+
+  .envelope-flap {
+    height: 120px;
+  }
+
+  .floating-heart,
+  .falling-star {
+    display: none;
   }
 }
