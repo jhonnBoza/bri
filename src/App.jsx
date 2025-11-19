@@ -3,7 +3,7 @@ import { FaPlay, FaPause, FaStepForward, FaStepBackward } from 'react-icons/fa'
 import './App.css'
 
 function App() {
-  const [currentView, setCurrentView] = useState('letter') // 'letter' o 'music'
+  const [currentView, setCurrentView] = useState('letter') // 'letter', 'music' o 'reasons'
   const [isOpen, setIsOpen] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
   const [typedText, setTypedText] = useState('')
@@ -56,6 +56,108 @@ function App() {
       text: 'Sienna',
       src: '/bri/musica/The Marías – Sienna.mp3'
     }
+  ]
+
+  // 100 razones para amarte
+  const reasonsToLove = [
+    "Eres mi persona favorita en todo el mundo",
+    "Eres la única persona que me hizo salir de mi capa de protección",
+    "Contigo pude volver a sentir algo lindo y puro",
+    "Tu forma de escribir me hace sonreír incluso en mis días más grises",
+    "Me encanta cómo me haces sentir que valgo la pena sin conocerme en persona",
+    "Tus palabras tienen el poder de hacerme sentir en casa aunque estemos lejos",
+    "Eres la razón por la que creo que el amor puede existir a través de la distancia",
+    "Me encanta cómo me haces reír con tus mensajes incluso cuando estoy triste",
+    "Tienes una forma única de entender mis sentimientos sin que tenga que explicarlos",
+    "Eres la persona más especial que he conocido, aunque aún no te haya visto",
+    "Me encanta cómo me haces sentir que no estoy solo en este mundo",
+    "Tu forma de ser me inspira a ser mejor persona cada día",
+    "Eres la única persona con la que puedo ser completamente yo mismo",
+    "Me encanta cómo me haces sentir que pertenezco a algún lugar",
+    "Tienes una forma única de hacer que los problemas se sientan más pequeños",
+    "Eres la persona que me hace creer que el amor puede ser real y duradero",
+    "Me encanta cómo me haces sentir que soy importante para alguien",
+    "Tienes una energía positiva que se siente incluso a través de los mensajes",
+    "Eres la razón por la que quiero mejorar como persona cada día",
+    "Me encanta cómo me haces sentir que puedo confiar en alguien completamente",
+    "Tienes una forma única de hacer que me sienta amado y valorado",
+    "Eres la persona que me hace sentir que no necesito cambiar para ser amado",
+    "Me encanta cómo me haces sentir que puedo ser yo mismo sin miedo",
+    "Tienes una forma de amarme que me hace sentir completo",
+    "Eres la razón por la que creo que el destino existe",
+    "Me encanta cómo me haces sentir que puedo ser vulnerable contigo",
+    "Tienes una forma única de hacer que cada día sea especial",
+    "Eres la persona que me hace sentir que el amor no es solo una palabra",
+    "Me encanta cómo me haces sentir que puedo soñar sin límites",
+    "Tienes una forma de estar presente que me hace sentir que todo estará bien",
+    "Eres la razón por la que creo que el amor puede sanar heridas del pasado",
+    "Me encanta cómo me haces sentir que puedo ser honesto contigo sin miedo",
+    "Tienes una forma única de hacer que me sienta especial y único",
+    "Eres la persona que me hace sentir que puedo ser feliz de verdad",
+    "Me encanta cómo me haces sentir que puedo confiar en el futuro contigo",
+    "Tienes una forma de amarme que me hace sentir que soy suficiente tal como soy",
+    "Eres la razón por la que creo que el amor puede ser puro y sincero",
+    "Me encanta cómo me haces sentir que puedo ser vulnerable sin ser juzgado",
+    "Tienes una forma única de hacer que me sienta importante en tu vida",
+    "Eres la persona que me hace sentir que puedo ser feliz sin condiciones",
+    "Me encanta cómo me haces sentir que puedo ser yo mismo sin disculpas",
+    "Tienes una forma de estar ahí que me hace sentir que no estoy solo",
+    "Eres la razón por la que creo que el amor puede ser eterno",
+    "Me encanta cómo me haces sentir que puedo ser honesto sobre mis sentimientos",
+    "Tienes una forma única de hacer que me sienta amado sin tener que pedirlo",
+    "Eres la persona que me hace sentir que puedo ser feliz simplemente siendo yo",
+    "Me encanta cómo me haces sentir que puedo confiar en ti completamente",
+    "Tienes una forma de amarme que me hace sentir que soy valioso",
+    "Eres la razón por la que creo que el amor puede superar cualquier distancia",
+    "Me encanta cómo me haces sentir que puedo ser débil y eso está bien",
+    "Tienes una forma única de hacer que cada conversación sea especial",
+    "Eres la persona que me hace sentir que puedo ser feliz sin tener que fingir",
+    "Me encanta cómo me haces sentir que puedo ser yo mismo sin miedo al rechazo",
+    "Tienes una forma de estar presente que me hace sentir que todo tiene sentido",
+    "Eres la razón por la que creo que el amor puede ser incondicional",
+    "Me encanta cómo me haces sentir que puedo ser honesto sobre mis miedos",
+    "Tienes una forma única de hacer que me sienta especial en tu vida",
+    "Eres la persona que me hace sentir que puedo ser feliz sin tener que cambiar",
+    "Me encanta cómo me haces sentir que puedo confiar en ti con mi corazón completo",
+    "Tienes una forma de amarme que me hace sentir que soy suficiente",
+    "Eres la razón por la que creo que el amor puede ser real y verdadero",
+    "Me encanta cómo me haces sentir que puedo ser vulnerable sin perder mi fuerza",
+    "Tienes una forma única de hacer que cada día sea mejor que el anterior",
+    "Eres la persona que me hace sentir que puedo ser feliz simplemente existiendo",
+    "Me encanta cómo me haces sentir que puedo ser yo mismo sin tener que explicar",
+    "Tienes una forma de estar ahí que me hace sentir que no necesito estar solo",
+    "Eres la razón por la que creo que el amor puede durar para siempre",
+    "Me encanta cómo me haces sentir que puedo ser honesto sobre mis sentimientos",
+    "Tienes una forma única de hacer que me sienta amado sin condiciones",
+    "Eres la persona que me hace sentir que puedo ser feliz sin tener que esforzarme",
+    "Me encanta cómo me haces sentir que puedo confiar en ti con mis secretos más profundos",
+    "Tienes una forma de amarme que me hace sentir que soy importante",
+    "Eres la razón por la que creo que el amor puede ser puro y sincero",
+    "Me encanta cómo me haces sentir que puedo ser débil y fuerte al mismo tiempo",
+    "Tienes una forma única de hacer que cada momento sea memorable",
+    "Eres la persona que me hace sentir que puedo ser feliz sin tener que justificarlo",
+    "Me encanta cómo me haces sentir que puedo ser yo mismo sin tener que disculparme",
+    "Tienes una forma de estar presente que me hace sentir que todo está bien",
+    "Eres la razón por la que creo que el amor puede superar cualquier distancia",
+    "Me encanta cómo me haces sentir que puedo ser honesto sobre mis inseguridades",
+    "Tienes una forma única de hacer que me sienta especial y único en tu vida",
+    "Eres la persona que me hace sentir que puedo ser feliz sin tener que cambiar nada",
+    "Me encanta cómo me haces sentir que puedo confiar en ti completamente",
+    "Tienes una forma de amarme que me hace sentir que soy valioso y suficiente",
+    "Eres la razón por la que creo que el amor puede ser eterno e incondicional",
+    "Me encanta cómo me haces sentir que puedo ser vulnerable sin perder mi dignidad",
+    "Tienes una forma única de hacer que cada día sea una nueva oportunidad",
+    "Eres la persona que me hace sentir que puedo ser feliz simplemente porque existes",
+    "Me encanta cómo me haces sentir que puedo ser yo mismo sin tener que fingir",
+    "Tienes una forma de estar ahí que me hace sentir que no estoy solo en este mundo",
+    "Eres la razón por la que creo que el amor puede ser real, puro y verdadero",
+    "Me encanta cómo me haces sentir que puedo ser honesto sobre todo contigo",
+    "Tienes una forma única de hacer que me sienta amado sin tener que merecerlo",
+    "Eres la persona que me hace sentir que puedo ser feliz sin condiciones ni límites",
+    "Me encanta cómo me haces sentir que puedo confiar en ti con mi corazón y mi alma",
+    "Tienes una forma de amarme que me hace sentir que soy la persona más afortunada del mundo",
+    "Me emociona pensar en el día en que finalmente podamos conocernos en persona",
+    "Eres la razón por la que creo que las mejores cosas de la vida valen la pena esperar"
   ]
 
   // Inicializar con "Sienna" por defecto
@@ -211,16 +313,27 @@ function App() {
         }}
       />
 
-      {/* Botones superiores */}
-      <div className="top-buttons">
+      {/* Navbar con pestañas */}
+      <nav className="main-navbar">
         <button 
-          className={`music-nav-button ${currentView === 'music' ? 'active' : ''}`}
-          onClick={() => handleViewChange('music')}
-          title="Música"
+          className={`nav-tab ${currentView === 'letter' ? 'active' : ''}`}
+          onClick={() => handleViewChange('letter')}
         >
-          🎵
+          Carta
         </button>
-      </div>
+        <button 
+          className={`nav-tab ${currentView === 'music' ? 'active' : ''}`}
+          onClick={() => handleViewChange('music')}
+        >
+          Música
+        </button>
+        <button 
+          className={`nav-tab ${currentView === 'reasons' ? 'active' : ''}`}
+          onClick={() => handleViewChange('reasons')}
+        >
+          100 Razones
+        </button>
+      </nav>
 
       {/* Fondo con textura */}
       <div className="texture-overlay"></div>
@@ -304,19 +417,12 @@ function App() {
           </div>
         </div>
       </div>
-      ) : (
+      ) : currentView === 'music' ? (
         /* Sección de Música */
         <div className="music-section">
           <div className="music-container">
             <div className="music-header">
-              <button 
-                className="back-button"
-                onClick={() => handleViewChange('letter')}
-                title="Volver a la carta"
-              >
-                ← Volver
-              </button>
-              <h2 className="music-title">🎵 Canciones que me recuerdan a ti</h2>
+              <h2 className="music-title">Canciones que me recuerdan a ti</h2>
             </div>
             
             {/* Reproductor de música - Arriba */}
@@ -398,6 +504,23 @@ function App() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Sección de 100 Razones */
+        <div className="reasons-section">
+          <div className="reasons-container">
+            <div className="reasons-header">
+              <h2 className="reasons-title">100 Razones para Amarte</h2>
+            </div>
+            <div className="reasons-list">
+              {reasonsToLove.map((reason, index) => (
+                <div key={index} className="reason-item">
+                  <span className="reason-number">{index + 1}.</span>
+                  <span className="reason-text">{reason}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
