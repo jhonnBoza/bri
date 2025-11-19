@@ -347,18 +347,12 @@ function App() {
           <div className={`letter ${isOpen ? 'opened' : 'closed'}`}>
             <div className="letter-border"></div>
             <div className="letter-header">
-              <h2>💌 Cartita para mi chinita</h2>
-              <div className="letter-date">📅 {new Date().toLocaleDateString('es-ES', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}</div>
+              <h2>334</h2>
             </div>
             {isOpen ? (
               <div className="letter-content">
                 <p>
-                  Hola mi chinita 💕,
+                  Hola
                 </p>
                 <p>
                   Sé que es algo raro aparecer después de mucho tiempo y sin decirte nada, 
@@ -379,12 +373,6 @@ function App() {
                   te extraño :c 💔
                 </p>
                 
-                {/* Contador de días */}
-                <div className="days-counter">
-                  <p>Ya no aguanto ma, ya quiero saber de ti de nuevo:C</p>
-                </div>
-
-
                 {/* Botón de sorpresa */}
                 <button 
                   className="surprise-button"
