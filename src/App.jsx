@@ -3,7 +3,7 @@ import { FaPlay, FaPause, FaStepForward, FaStepBackward } from 'react-icons/fa'
 import './App.css'
 
 function App() {
-  const [currentView, setCurrentView] = useState('letter') // 'letter', 'music' o 'reasons'
+  const [currentView, setCurrentView] = useState('letter') // 'letter', 'music', 'reasons' o 'timeline'
   const [isOpen, setIsOpen] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
   const [typedText, setTypedText] = useState('')
@@ -158,6 +158,59 @@ function App() {
     "Tienes una forma de amarme que me hace sentir que soy la persona más afortunada del mundo",
     "Me emociona pensar en el día en que finalmente podamos conocernos en persona",
     "Eres la razón por la que creo que las mejores cosas de la vida valen la pena esperar"
+  ]
+
+  // Datos del Timeline
+  const timelineData = [
+    {
+      id: 1,
+      date: "6 de septiembre de 2025",
+      title: "El primer Hola",
+      description: "Ese día decidí escribirte sin saber si responderías, pero algo en mí me decía que tenía que conocerte. Desde la primera vez que te vi, sentí algo especial, una atracción que no pude ignorar. Tomé valor y te envié ese primer mensaje con la esperanza de que fuera el comienzo de algo hermoso. Y así fue, porque ese simple 'Hola' cambió todo.",
+      image: "/bri/timeline/primerhola.jpg"
+    },
+    {
+      id: 2,
+      date: "25 de septiembre de 2025",
+      title: "Después de tiempo",
+      description: "Después de tanto tiempo sin hablar y cuando ya había dejado de contestar, apareciste de la nada pidiendo disculpas. Ese día me alegró mucho porque pude ver las buenas intenciones que tenías. Fue un momento que me llenó de esperanza y me hizo sonreír, porque significaba que aún importaba para ti y que querías arreglar las cosas.",
+      image: "/bri/timeline/depuesdetiempo.jpg"
+    },
+    {
+      id: 3,
+      date: "26 de septiembre de 2025",
+      title: "Tu primer audio",
+      description: "Cuando me mandaste tu primer audio me emocioné mucho. Escuchar tu voz por primera vez fue lindo.",
+      image: "/bri/timeline/audio.jpg"
+    },
+    {
+      id: 4,
+      date: "Septiembre de 2025",
+      title: "La indirecta",
+      description: "Ese día me tiraste una indirecta y no supe cómo reaccionar. Me quedé pensando en qué decir y cómo responder, porque no quería arruinarlo.",
+      image: "/bri/timeline/tiktok.jpg"
+    },
+    {
+      id: 5,
+      date: "Septiembre de 2025",
+      title: "Nuestra primera videollamada",
+      description: "Ese día hicimos nuestra primera videollamada y hablamos toda la tarde. Fue una conversación linda y me reí mucho. Fue un día especial.",
+      image: "/bri/timeline/videollamada.jpg"
+    },
+    {
+      id: 6,
+      date: "Septiembre de 2025",
+      title: "Tus ojitos",
+      description: "Ese día me mandaste muchas fotos y me enamoré de tus ojos. Son tan lindos que desde entonces lo tengo de fondo de pantalla y no lo cambio.",
+      image: "/bri/timeline/ojitos.jpg"
+    },
+    {
+      id: 7,
+      date: "Hoy",
+      title: "Te extraño",
+      description: "Extraño tanto hablar contigo y pasar tiempo juntos. Ahora mis días se sienten vacíos sin tus mensajes y sin saber de ti. Cada momento que pasamos juntos lo guardo como un tesoro porque contigo todo era más especial.",
+      image: null
+    }
   ]
 
   // Inicializar con "Sienna" por defecto
@@ -319,19 +372,25 @@ function App() {
           className={`nav-tab ${currentView === 'letter' ? 'active' : ''}`}
           onClick={() => handleViewChange('letter')}
         >
-          Carta
+          💌
         </button>
         <button 
           className={`nav-tab ${currentView === 'music' ? 'active' : ''}`}
           onClick={() => handleViewChange('music')}
         >
-          Música
+          🎵
         </button>
         <button 
           className={`nav-tab ${currentView === 'reasons' ? 'active' : ''}`}
           onClick={() => handleViewChange('reasons')}
         >
-          100 Razones
+          💕
+        </button>
+        <button 
+          className={`nav-tab ${currentView === 'timeline' ? 'active' : ''}`}
+          onClick={() => handleViewChange('timeline')}
+        >
+          📅
         </button>
       </nav>
 
@@ -495,7 +554,7 @@ function App() {
             </div>
           </div>
         </div>
-      ) : (
+      ) : currentView === 'reasons' ? (
         /* Sección de 100 Razones */
         <div className="reasons-section">
           <div className="reasons-container">
@@ -507,6 +566,38 @@ function App() {
                 <div key={index} className="reason-item">
                   <span className="reason-number">{index + 1}.</span>
                   <span className="reason-text">{reason}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Sección de Timeline */
+        <div className="timeline-section">
+          <div className="timeline-container">
+            <div className="timeline-header">
+              <h2 className="timeline-title">you and me</h2>
+            </div>
+            <div className="timeline-wrapper">
+              {timelineData.map((moment, index) => (
+                <div key={moment.id} className="timeline-item" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="timeline-marker"></div>
+                  <div className="timeline-content">
+                    <div className="timeline-date">{moment.date}</div>
+                    <div className="timeline-card">
+                      {moment.image && (
+                        <div className="timeline-image-container">
+                          <img src={moment.image} alt={moment.title} className="timeline-image" />
+                        </div>
+                      )}
+                      <div className="timeline-text">
+                        {moment.title && (
+                          <h3 className="timeline-card-title">{moment.title}</h3>
+                        )}
+                        <p className="timeline-card-description">{moment.description}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
