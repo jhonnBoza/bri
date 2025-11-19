@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { FaPlay, FaPause, FaStepForward, FaStepBackward } from 'react-icons/fa'
 import './App.css'
 
 function App() {
@@ -6,13 +7,10 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [showSurprise, setShowSurprise] = useState(false)
   const [typedText, setTypedText] = useState('')
-  const [isMuted, setIsMuted] = useState(false)
-  const [audioStarted, setAudioStarted] = useState(false)
   const [selectedMusic, setSelectedMusic] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
-  const audioRef = useRef(null)
   const musicAudioRef = useRef(null)
   const fullMessage = 'Eres mi persona favorita en todo el mundo 🌟'
 
@@ -73,82 +71,10 @@ function App() {
   const today = new Date()
   const daysSince = Math.floor((today - specialDate) / (1000 * 60 * 60 * 24))
 
-  // Efecto para inicializar el audio al cargar
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.3 // Volumen al 30%
-      audioRef.current.loop = true // Asegurar que se repita
-      
-      // Event listeners para manejar la reproducción
-      const audio = audioRef.current
-      
-      // Cuando la canción termina, reiniciarla (por si el loop falla)
-      const handleEnded = () => {
-        audio.currentTime = 0
-        audio.play().catch(error => {
-          console.log('Error al reiniciar:', error)
-        })
-      }
-      
-      // Manejar errores de carga
-      const handleError = (e) => {
-        console.error('Error en el audio:', e)
-      }
-      
-      // Verificar cuando se carga el metadata (duración del audio)
-      const handleLoadedMetadata = () => {
-        console.log('Duración del audio:', audio.duration, 'segundos')
-      }
-      
-      audio.addEventListener('ended', handleEnded)
-      audio.addEventListener('error', handleError)
-      audio.addEventListener('loadedmetadata', handleLoadedMetadata)
-      
-      return () => {
-        audio.removeEventListener('ended', handleEnded)
-        audio.removeEventListener('error', handleError)
-        audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
-      }
-    }
-  }, [])
 
-  // Efecto para manejar mute/unmute
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.muted = isMuted
-    }
-  }, [isMuted])
-
-  // Función para iniciar el audio
-  const startAudio = () => {
-    if (audioRef.current && !audioStarted) {
-      audioRef.current.play().then(() => {
-        setAudioStarted(true)
-      }).catch(error => {
-        console.log('Error al reproducir:', error)
-      })
-    }
-  }
-
-  // Función para alternar mute/unmute
-  const toggleMute = () => {
-    if (audioRef.current) {
-      // Si el audio está pausado, iniciarlo primero
-      if (audioRef.current.paused) {
-        audioRef.current.play().then(() => {
-          setAudioStarted(true)
-        }).catch(error => {
-          console.log('Error al reproducir:', error)
-        })
-      }
-    }
-    setIsMuted(!isMuted)
-  }
-
-  // Función para abrir la carta (sin música de fondo)
+  // Función para abrir la carta
   const handleOpenLetter = () => {
     setIsOpen(true)
-    // No iniciar música de fondo al abrir la carta
   }
 
   // Función para cambiar de música
@@ -198,8 +124,8 @@ function App() {
       audio.volume = 0.3
       audio.load()
       
-      // Reproducir automáticamente si es la primera vez o si ya estaba reproduciendo
-      if (wasPlaying || audioStarted) {
+      // Reproducir automáticamente si ya estaba reproduciendo
+      if (wasPlaying) {
         audio.play().then(() => {
           setIsPlaying(true)
         }).catch(error => {
@@ -245,13 +171,8 @@ function App() {
   // Función para cambiar de vista
   const handleViewChange = (view) => {
     setCurrentView(view)
-    // Pausar música de fondo cuando se va a la sección de música
-    if (view === 'music' && audioRef.current) {
-      audioRef.current.pause()
-    }
     // Si es la primera vez que entras a música y hay una canción seleccionada, reproducirla
-    if (view === 'music' && selectedMusic && !audioStarted) {
-      setAudioStarted(true)
+    if (view === 'music' && selectedMusic) {
       // El audio se cargará y reproducirá automáticamente en el useEffect de selectedMusic
       setIsPlaying(true)
     }
@@ -278,14 +199,6 @@ function App() {
 
   return (
     <div className="container">
-      {/* Audio de fondo para la carta */}
-      <audio 
-        ref={audioRef}
-        src="/bri/musica/The Marías – Sienna.mp3" 
-        loop
-        preload="auto"
-      />
-
       {/* Audio para la sección de música */}
       <audio 
         ref={musicAudioRef}
@@ -307,15 +220,6 @@ function App() {
         >
           🎵
         </button>
-        {currentView === 'letter' && (
-          <button 
-            className="mute-button"
-            onClick={toggleMute}
-            aria-label={isMuted ? "Activar sonido" : "Silenciar"}
-          >
-            {isMuted ? '🔇' : '🔊'}
-          </button>
-        )}
       </div>
 
       {/* Fondo con textura */}
@@ -427,13 +331,13 @@ function App() {
                 </div>
                 <div className="player-controls-main">
                   <button className="player-btn-nav" onClick={handlePrev} title="Anterior">
-                    ⏮️
+                    <FaStepBackward />
                   </button>
                   <button className="player-btn-play" onClick={handlePlayPause} title={isPlaying ? "Pausar" : "Reproducir"}>
-                    {isPlaying ? '⏸️' : '▶️'}
+                    {isPlaying ? <FaPause /> : <FaPlay />}
                   </button>
                   <button className="player-btn-nav" onClick={handleNext} title="Siguiente">
-                    ⏭️
+                    <FaStepForward />
                   </button>
                 </div>
                 <div className="player-progress">
@@ -487,7 +391,9 @@ function App() {
                       <p className="music-list-item-artist">{music.artist}</p>
                     </div>
                     {selectedMusic?.id === music.id && isPlaying && (
-                      <span className="music-list-item-playing">▶️</span>
+                      <span className="music-list-item-playing">
+                        <FaPlay />
+                      </span>
                     )}
                   </div>
                 ))}
